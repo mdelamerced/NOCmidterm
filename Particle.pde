@@ -5,14 +5,11 @@ class Particle extends VerletParticle2D {
   float r;
   float lifespan;
 
-
   Particle (Vec2D loc) {
-
-
     super(loc);
     r = 8;
     physics.addParticle(this);
-    physics.addBehavior(new AttractionBehavior(this, r*4, -1));
+    physics.addBehavior(new AttractionBehavior(this, r*2, 1));
   }
 
   void display () {

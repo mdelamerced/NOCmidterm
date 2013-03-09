@@ -33,6 +33,7 @@ void setup() {
   context.setMirror(false);
   context.enableDepth();
   context.enableRGB();
+  
   //unfortunately have to track guestures to get hands
   context.enableGesture();
   context.enableHands();
@@ -67,14 +68,10 @@ void draw() {
   //draw toxiclibs particles
   physics.update ();
 
-  //for debugging
-
   attractor.display();
   for (Particle p: particles) {
     p.display();
   }
-
-
   attractor.set(myPositionScreenCoords.x, myPositionScreenCoords.y);
 }
 
