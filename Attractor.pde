@@ -11,8 +11,8 @@ class Attractor extends VerletParticle2D {
   }
 
   void display () {
-    fill(0);
-    ellipse (x, y, r*2, r*2);
+  //  fill(0);
+   // ellipse (x, y, r*2, r*2);
   }
 }
 

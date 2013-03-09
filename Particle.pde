@@ -3,8 +3,12 @@
 class Particle extends VerletParticle2D {
 
   float r;
+  float lifespan;
+
 
   Particle (Vec2D loc) {
+
+
     super(loc);
     r = 8;
     physics.addParticle(this);
@@ -12,9 +16,10 @@ class Particle extends VerletParticle2D {
   }
 
   void display () {
-    fill (127);
-    stroke (0);
-    strokeWeight(2);
-    ellipse (x, y, r*2, r*2);
+    lifespan = 100.0;
+    lifespan -= 2.5;
+    image(img, x, y);
+    tint(255, lifespan);
   }
 }
+

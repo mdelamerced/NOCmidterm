@@ -11,16 +11,22 @@ import SimpleOpenNI.*;
 SimpleOpenNI context; 
 boolean handsTrackFlag = false; 
 PVector handVec = new PVector();
- PVector myPositionScreenCoords  = new PVector();
+PVector myPositionScreenCoords  = new PVector();
 
+//declare particle array
 ArrayList<Particle> particles;
 Attractor attractor;
 
 VerletPhysics2D physics;
 
+PImage img;
+
 void setup() {
   size(640, 480);  // strange, get drawing error in the cameraFrustum if i use P3D, in opengl there is no problem
   //size(1024,768,OPENGL);
+
+  //load texture
+  img = loadImage("wave.png");
 
   //initialize kinect commands
   context = new SimpleOpenNI(this);
@@ -31,7 +37,7 @@ void setup() {
   context.enableGesture();
   context.enableHands();
   context.addGesture("RaiseHand");
-  fill(255, 0, 0);
+  // fill(255, 0, 0);
 
   //toxiclibs particle initialization
   physics = new VerletPhysics2D ();
@@ -50,31 +56,25 @@ void draw() {
   //paint the image
   PImage rgbImage = context.rgbImage();
   image(rgbImage, 0, 0, width, height);
+
+  //start tracking hands
   if (handsTrackFlag) 
   {
-    //storage device
     //convert the weird kinect coordinates to screen coordinates.
     context.convertRealWorldToProjective(handVec, myPositionScreenCoords);
-   // ellipse(myPositionScreenCoords.x, myPositionScreenCoords.y, 20, 20);
   }
 
   //draw toxiclibs particles
   physics.update ();
 
+  //for debugging
+
   attractor.display();
   for (Particle p: particles) {
     p.display();
   }
-  
+
+
   attractor.set(myPositionScreenCoords.x, myPositionScreenCoords.y);
-/*
-  if (mousePressed) {
-    attractor.lock();
-    attractor.set(mouseX, mouseY);
-  } 
-  else {
-    attractor.unlock();
-  }
-  */
 }
 
