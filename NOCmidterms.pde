@@ -11,6 +11,7 @@ import SimpleOpenNI.*;
 SimpleOpenNI context; 
 boolean handsTrackFlag = false; 
 PVector handVec = new PVector();
+ PVector myPositionScreenCoords  = new PVector();
 
 ArrayList<Particle> particles;
 Attractor attractor;
@@ -51,10 +52,10 @@ void draw() {
   image(rgbImage, 0, 0, width, height);
   if (handsTrackFlag) 
   {
-    PVector myPositionScreenCoords  = new PVector(); //storage device
+    //storage device
     //convert the weird kinect coordinates to screen coordinates.
     context.convertRealWorldToProjective(handVec, myPositionScreenCoords);
-    ellipse(myPositionScreenCoords.x, myPositionScreenCoords.y, 20, 20);
+   // ellipse(myPositionScreenCoords.x, myPositionScreenCoords.y, 20, 20);
   }
 
   //draw toxiclibs particles
@@ -64,7 +65,9 @@ void draw() {
   for (Particle p: particles) {
     p.display();
   }
-
+  
+  attractor.set(myPositionScreenCoords.x, myPositionScreenCoords.y);
+/*
   if (mousePressed) {
     attractor.lock();
     attractor.set(mouseX, mouseY);
@@ -72,5 +75,6 @@ void draw() {
   else {
     attractor.unlock();
   }
+  */
 }
 
